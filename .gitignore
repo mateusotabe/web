@@ -1,0 +1,6 @@
+db/*
+server/sites/*
+!server/sites/default.config
+www/*
+www/index.html
+.env
