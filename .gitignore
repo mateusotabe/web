@@ -1,6 +1,3 @@
-db/*
-server/sites/*
-!server/sites/default.config
-www/*
-www/index.html
+db/pgsql/*
+db/mysql/*
 .env

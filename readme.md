@@ -1,5 +1,5 @@
 **********************************************************************
-* Pequenos passos para o ambiente de dev com PHP e Postgres no Nginx *
+  Pequenos passos para o ambiente de dev com PHP e Postgres no Nginx  
 **********************************************************************
 
 Esse ambiente pretende utilizar a porta 80, deve-se desabilitar qualquer serviço que utilize essa porta.
@@ -10,4 +10,6 @@ Esse ambiente pretende utilizar a porta 80, deve-se desabilitar qualquer serviç
 4. Alterar o proprietário da pasta (e conteúdo) do projeto para www-data;
 5. Criar o host no /etc/hosts (lembrando que não aceita porta):
 						127.0.0.1		app.exemplo.test
+6. Alterar o usuário e id do usuário dos args no docker-compose.yml
 
+No fim, o projeto ficará dentro da pasta www/meu_projeto
