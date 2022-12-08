@@ -1,15 +1,28 @@
-**********************************************************************
-  Pequenos passos para o ambiente de dev com PHP e Postgres no Nginx  
-**********************************************************************
+# Ambiente de dev com PHP, Node, MySql, Postgres e Nginx
 
-Esse ambiente pretende utilizar a porta 80, deve-se desabilitar qualquer serviço que utilize essa porta.
+##### Esse ambiente utiliza a porta 80, deve-se desabilitar qualquer serviço que utilize essa porta.
 
-1. Criar o arquivo conf dentro de sites para cada app que teremos, podendo utilizar default.conf como base. (Utilizar o hostname para o nome do arquivo Ex.: app.exemplo.test.conf. E remover o default da porta de listen);
-2. No arquivo criado no passo 1 o server_name deve ser o mesmo do hostname. O diretório root será o diretório do projeto (Passo 3);
-3. Dentro da pasta www criar a pasta do projeto, com o nome do hostname. Essa será a pasta que abrigará a aplicação;
-4. Alterar o proprietário da pasta (e conteúdo) do projeto para www-data;
-5. Criar o host no /etc/hosts (lembrando que não aceita porta):
-						127.0.0.1		app.exemplo.test
-6. Alterar o usuário e id do usuário dos args no docker-compose.yml
+## Instrução Geral
+Alterar o usuário e o id no _docker-compose.yml_ para o usuário da máquina de desenvolvimento.
 
-No fim, o projeto ficará dentro da pasta www/meu_projeto
+## App PHP
+1. Criar um diretório com o nome do app, dentro de __www__ _(www/meuapp.teste/)_
+2. Criar o arquivo __.conf__ no diretório __server/sites__ com o mesmo nome do diretório do passo anterior _(server/sites/meuapp.teste.conf)_.
+		- Utilizar o arquivo __php.test.conf__ como base.
+		- O __server_name__ é o endereço da aplicação. Deve ser o mesmo nome do diretório criado no passo 1. _(server_name meuapp.teste)_.
+3. Criar o hostname do app no arquivo __/etc/hosts__ _(127.0.0.1	meuapp.teste)_.
+
+## App Node
+1. Criar um diretório com o nome do app dentro de __www__ _(www/nodeapp.teste/)_
+2. No arquivo __docker_compose.yml__ adicionar o container da aplicação node, usando o __web_node__ como exemplo.
+		- Alterar o nome do container. __(container_name: nodeapp)__
+		- Criar o volume do diretório criado no passo 1 linkado ao workdir. _(- ./www/nodeapp.teste:/app)_
+3. Criar o arquivo __.conf__ no diretório __server/sites__ com o mesmo nome da pasta do passo anterior _(server/sites/nodeapp.teste.conf)_.
+		- Utilizar o arquivo __node.test.conf__ como base.
+		- O __server_name__ é o endereço da aplicação. Deve ser o mesmo do diretório criado no passo 1. _(server_name nodeapp.teste)_.
+		- O __proxy_pass__ deve apontar para o nome do container com o app, criado no passo 2, e a porta que ele escuta. _(prox_pass http://nodeapp:3000)_
+4. Criar o hostname do app no arquivo __/etc/hosts__ _(127.0.0.1	nodeapp.teste)_.
+
+---
+
+#### v1.1

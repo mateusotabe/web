@@ -56,7 +56,20 @@ services:
       - ./server/sites/:/etc/nginx/sites-available/
       - ./server/sites/:/etc/nginx/sites-enabled/
     networks:
-      - web 
+      - web
+  web_node:
+    image: node:alpine
+    container_name: web_node
+    working_dir: /app
+    environment:
+      - NODE_ENV=developtment
+    volumes:
+      - ./www/node.test:/app
+    ports:
+      - "3000:3000"
+    command: sh -c "node server.js"
+    networks:
+      - web
 networks:
   web:
     driver: bridge
