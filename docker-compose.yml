@@ -1,75 +1,47 @@
-version: "3.9"
-services:  
-  web_php:
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    depends_on:
+      - php
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/home/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+
+  php:
     build:
-      args: 
-        user: mateus
-        uid: 1000
-      context: ./
-      dockerfile: Dockerfile
-    image: web_php
-    container_name: web_php
-    working_dir: /var/www/
-    ports:
-      - 9000:9000
+      context: .
+      dockerfile: docker/php/Dockerfile
+      target: dev
+    user: "1000:1000"
     volumes:
-      - ./www:/var/www
-    networks:
-      - web 
-  web_pgsql:
-    image: postgres:14.2-alpine
-    hostname: web_pgsql 
-    container_name: web_pgsql 
+      - ./:/home/www
     environment:
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-      POSTGRES_USER: $POSTGRES_USER
+      APP_ENV: local
+      # DB (PostgreSQL)
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: laravel
+      DB_USERNAME: laravel
+      DB_PASSWORD: laravel
+      NPM_CONFIG_CACHE: /home/www/.npm
     ports:
-      - 5432:5432
-    volumes:
-      - ./db/pgsql/:/var/lib/postgresql/data
-    networks:
-      - web
-  web_mysql:
-    image: mysql
-    hostname: web_mysql 
-    container_name: web_mysql 
+      - "5173:5173"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16-alpine
     environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+      POSTGRES_DB: laravel
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: laravel
     ports:
-      - 3306:3306
+      - "5433:5432"
     volumes:
-      - ./db/mysql/:/var/lib/mysql
-    networks:
-      - web
-  web_server:
-    image: nginx:alpine
-    container_name: web_server 
-    working_dir: /var/www
-    ports:
-      - 80:80
-    volumes:
-      - ./www:/var/www
-      - ./server/nginx.conf:/etc/nginx/nginx.conf
-      - ./server/conf.d:/etc/nginx/conf.d/
-      - ./server/sites/:/etc/nginx/sites-available/
-      - ./server/sites/:/etc/nginx/sites-enabled/
-    networks:
-      - web
-  web_node:
-    image: node:alpine
-    container_name: web_node
-    working_dir: /app
-    environment:
-      - NODE_ENV=developtment
-    volumes:
-      - ./www/node.test:/app
-    ports:
-      - "3000:3000"
-    command: sh -c "node server.js"
-    networks:
-      - web
-networks:
-  web:
-    driver: bridge
+      - postgres_data:/home/lib/postgresql/data
+
+volumes:
+  postgres_data:

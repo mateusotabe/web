@@ -1,3 +1,0 @@
-db/pgsql/*
-db/mysql/*
-.env
