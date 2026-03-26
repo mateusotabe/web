@@ -1,14 +1,14 @@
-# 🐳 Laravel 12 — Ambiente Docker
+# 🐳 Laravel 13 — Ambiente Docker
 
-**PHP 8.4 · Nginx · PostgreSQL · Vite**
+**PHP 8.5 · Nginx · PostgreSQL · Vite**
 
-Este repositório fornece um ambiente de desenvolvimento completo para **Laravel 12**, utilizando **Docker + Docker Compose**, com foco em simplicidade, performance e compatibilidade com Vite.
+Este repositório fornece um ambiente de desenvolvimento completo para **Laravel 13**, utilizando **Docker + Docker Compose**, com foco em simplicidade, performance e compatibilidade com Vite.
 
 ---
 
 ## 📦 Stack
 
-- PHP 8.4 (FPM)
+- PHP 8.5 (FPM)
 - Nginx (Alpine)
 - PostgreSQL 16
 - Node.js / npm (Vite)
@@ -31,7 +31,7 @@ Antes de começar, certifique-se de ter instalado:
 Na pasta do seu projeto execute:
 
 ```bash
-curl -L https://github.com/mateusotabe/web/archive/refs/heads/laravel12.tar.gz \
+curl -L https://github.com/mateusotabe/web/archive/refs/heads/laravel13.tar.gz \
 | tar -xz --strip-components=1 -C .
 ```
 

@@ -12,7 +12,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
+      dockerfile: ./docker/php/Dockerfile
       target: dev
     user: "1000:1000"
     volumes:
@@ -20,12 +20,12 @@ services:
     environment:
       APP_ENV: local
       # DB (PostgreSQL)
-      DB_CONNECTION: pgsql
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_DATABASE: laravel
-      DB_USERNAME: laravel
-      DB_PASSWORD: laravel
+      # DB_CONNECTION: pgsql
+      # DB_HOST: postgres
+      # DB_PORT: 5432
+      # DB_DATABASE: laravel
+      # DB_USERNAME: laravel
+      # DB_PASSWORD: laravel
       NPM_CONFIG_CACHE: /home/www/.npm
     ports:
       - "5173:5173"
@@ -41,7 +41,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/home/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
   postgres_data:
