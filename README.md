@@ -109,6 +109,7 @@ A aplicação ficará disponível em:
 O Vite já está configurado para funcionar corretamente em ambiente Docker:
 
 ```ts
+plugins: [...],
 server: {
   host: true,
   port: 5173,
