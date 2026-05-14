@@ -35,6 +35,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 FROM base AS dev
 RUN apk add --no-cache $PHPIZE_DEPS linux-headers nodejs npm \
+  && npm install -g pnpm \
   && pecl install xdebug \
   && docker-php-ext-enable xdebug
 

@@ -11,7 +11,7 @@ Este repositório fornece um ambiente de desenvolvimento completo para **Laravel
 - PHP 8.5 (FPM)
 - Nginx (Alpine)
 - PostgreSQL 16
-- Node.js / npm (Vite)
+- Node.js / pnpm (Vite)
 - Composer 2
 - Xdebug (ambiente dev)
 
@@ -65,10 +65,10 @@ docker compose exec php composer install
 
 ---
 
-### 4️⃣ Instalar dependências Frontend (npm)
+### 4️⃣ Instalar dependências Frontend (pnpm)
 
 ```bash
-docker compose exec php npm install
+docker compose exec php pnpm install
 ```
 
 ---
@@ -92,7 +92,7 @@ docker compose exec php php artisan key:generate
 ### 7️⃣ Iniciar Vite (Hot Reload)
 
 ```bash
-docker compose exec php npm run dev
+docker compose exec php pnpm run dev
 ```
 
 A aplicação ficará disponível em:

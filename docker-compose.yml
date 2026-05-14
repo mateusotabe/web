@@ -26,7 +26,7 @@ services:
       # DB_DATABASE: laravel
       # DB_USERNAME: laravel
       # DB_PASSWORD: laravel
-      NPM_CONFIG_CACHE: /home/www/.npm
+      PNPM_HOME: /home/www/.pnpm
     ports:
       - "5173:5173"
     depends_on:
